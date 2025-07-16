@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Modi - Marketing Maverick</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #ff6f61, #ffd700); 
+            color: #2d1b4e; 
+            font-family: 'Poppins', sans-serif; 
+            line-height: 1.6; 
+            min-height: 100vh; 
+        }
+        .header { 
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff9f1c" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,186.7C384,192,480,224,576,229.3C672,235,768,213,864,197.3C960,181,1056,171,1152,181.3C1248,192,1344,224,1392,240L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>'); 
+            background-size: cover; 
+            padding: 60px 20px; 
+            text-align: center; 
+            color: #fff; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); 
+        }
+        .header h1 { font-size: 3.5em; animation: bounceIn 1s ease; }
+        .header p { font-size: 1.3em; margin: 10px 0; }
+        .nav { 
+            background: #2d1b4e; 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .nav ul { 
+            list-style: none; 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+        }
+        .nav a { 
+            color: #ffd700; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: color 0.3s; 
+        }
+        .nav a:hover { color: #ff9f1c; }
+        .section { 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 25px; 
+            margin: 20px auto; 
+            max-width: 1200px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            animation: fadeIn 0.8s ease; 
+        }
+        .section h2 { 
+            color: #00c4cc; 
+            margin-bottom: 15px; 
+            font-size: 2em; 
+            border-bottom: 2px solid #ff9f1c; 
+            display: inline-block; 
+        }
+        .content { font-size: 1.1em; }
+        .card-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+        .card { 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            transition: transform 0.3s; 
+        }
+        .card:hover { transform: translateY(-5px); }
+        .image-gallery { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            justify-content: center; 
+        }
+        .image-gallery img { 
+            width: 100%; 
+            max-width: 250px; 
+            height: auto; 
+            max-height: 250px; 
+            object-fit: contain; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .image-gallery img:hover { transform: scale(1.05); }
+        .image-gallery .gallery-caption { 
+            font-size: 0.9em; 
+            text-align: center; 
+            color: #2d1b4e; 
+            margin-top: 10px; 
+            width: 100%; 
+        }
+        .lightbox { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            z-index: 1000; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .lightbox img { 
+            max-width: 95%; 
+            max-height: 95%; 
+            object-fit: contain; 
+            border: 5px solid #ffd700; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+        }
+        .lightbox .close { 
+            position: absolute; 
+            top: 20px; 
+            right: 30px; 
+            color: #ffd700; 
+            font-size: 2.5em; 
+            cursor: pointer; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+        }
+        table, th, td { border: 1px solid #ff9f1c; }
+        th, td { padding: 12px; text-align: left; }
+        th { background: #00c4cc; color: #fff; }
+        .btn { 
+            background: #ff9f1c; 
+            color: #fff; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+        }
+        .btn:hover { background: #00c4cc; }
+        .campaigns .card { 
+            background: linear-gradient(135deg, #ff6f61, #ff9f1c); 
+            color: #fff; 
+            position: relative; 
+        }
+        .campaigns .card a { 
+            color: #ffd700; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: inline-block; 
+            margin-top: 10px; 
+            transition: color 0.3s; 
+        }
+        .campaigns .card a:hover { color: #2d1b4e; }
+        .experience-item { margin-bottom: 15px; }
+        .role-title { 
+            cursor: pointer; 
+            color: #00c4cc; 
+            font-weight: bold; 
+        }
+        .role-title:hover { text-decoration: underline; }
+        .experience-details { 
+            display: none; 
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 5px; 
+        }
+        .experience-details ul { margin: 0; padding-left: 20px; }
+        .chart-container { margin: 20px 0; }
+        .chart-explanation { 
+            font-size: 0.95em; 
+            color: #2d1b4e; 
+            margin-top: 10px; 
+            font-style: italic; 
+        }
+        .chart-divider { 
+            border-top: 1px dashed #ff9f1c; 
+            margin: 20px 0; 
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bounceIn { 
+            0% { transform: scale(0.5); opacity: 0; } 
+            60% { transform: scale(1.1); opacity: 1; } 
+            100% { transform: scale(1); } 
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5em; }
+            .nav ul { flex-direction: column; text-align: center; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Aditya Modi</h1>
+        <p>adityamodi067@gmail.com | 469-686-5720 | Dallas, TX | <a href="https://adityamodiportfolio.netlify.app" style="color: #ffd700;">adityamodiportfolio.netlify.app</a></p>
+        <p>Creative Marketing Wizard | Turning Ideas into Impact with SEO, Social Media, and AI Magic</p>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#charts">Insights</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#campaigns">Campaigns</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div id="about" class="section">
+            <h2>About Me</h2>
+            <div class="content">
+                <p>Hey there! I’m Aditya, a marketing enthusiast who thrives on crafting bold strategies from Dallas to Cairo. I’ve got a knack for boosting engagement by 20%+ with SEO wizardry, vibrant social media vibes, and AI-powered innovation. Let’s make your brand pop!</p>
+            </div>
+        </div>
+        <div id="experience" class="section">
+            <h2>My Journey</h2>
+            <div class="content">
+                <div class="experience-item">
+                    <h3 class="role-title">Marketing Assistant - Dallas Rugs (03/2024 - Present, Dallas, TX)</h3>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Managed Instagram, Facebook, TikTok, YouTube, and LinkedIn campaigns using Meta Business Suite and Hootsuite, enhancing engagement and creating content calendars.</li>
+                            <li>Designed marketing materials with Canva, Figma, and Adobe Creative Suite, boosting in-store inquiries.</li>
+                            <li>Executed email campaigns via Mailchimp, Klaviyo, and Salesforce, coordinated via Outlook, improving subscriber retention with A/B testing.</li>
+                            <li>Optimized WordPress content for SEO using SEMrush and Ahrefs, achieving 30% organic traffic growth.</li>
+                            <li>Analyzed customer behavior with Google Analytics and Google Tag Manager, increasing sales conversions by 10%.</li>
+                            <li>Collaborated with teams using Slack and GitHub, streamlining workflows and leveraging AI tools and Moz for content optimization, enhancing campaign performance by 12%.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <h3 class="role-title">Marketing Communications Specialist - ITT Technologies (02/2023 - 02/2024, Dallas, TX)</h3>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Crafted email and social media content (LinkedIn, Twitter) using HubSpot, Canva, and Sprout Social, enhancing brand visibility and engagement.</li>
+                            <li>Developed targeted email strategies with Klaviyo, using A/B testing to optimize open rates.</li>
+                            <li>Collaborated with creative teams to produce assets using Figma and Adobe Creative Suite, aligning with brand guidelines.</li>
+                            <li>Analyzed campaign performance with Google Analytics and SEMrush, improving strategies by 15%.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <h3 class="role-title">Sales Account Manager - Clout Promotions (01/2022 - 12/2022, Cincinnati, OH)</h3>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Developed marketing strategies for clients like Spectrum using HubSpot, SEMrush, and AI analytics, boosting brand awareness by 30% and engagement by 20%.</li>
+                            <li>Improved client retention and satisfaction using Salesforce CRM and streamlined communication via Slack and Sprout Social.</li>
+                            <li>Trained team members, enhancing productivity by 10%, and coordinated with external agencies for campaign alignment.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <h3 class="role-title">Brand Management Intern - Swan.co (06/2021 - 12/2021, Cairo, Egypt)</h3>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Increased brand awareness through seminars and media campaigns optimized with Moz.</li>
+                            <li>Analyzed trends using market research and Ahrefs, driving engagement growth.</li>
+                            <li>Created storyboards in Figma, boosting brand exposure by 30%.</li>
+                            <li>Deployed landing pages using Vercel, improving engagement by 10%.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="projects" class="section">
+            <h2>Star Projects</h2>
+            <div class="content card-grid">
+                <div class="card">
+                    <h3>Brand Identity Campaign</h3>
+                    <p>Revamped a local retail startup’s vibe with a slick logo and social media templates using Figma and Adobe Creative Suite. Amped up Instagram and TikTok interaction with Canva magic.</p>
+                </div>
+                <div class="card">
+                    <h3>SEO Performance Analysis</h3>
+                    <p>Dug into keywords with SEMrush and Ahrefs for an e-commerce platform, pushing traffic up 20% with data-driven SEO tweaks.</p>
+                </div>
+            </div>
+        </div>
+        <div id="charts" class="section">
+            <h2>Data Snapshots</h2>
+            <div class="content">
+                <div class="chart-container">
+                    <canvas id="engagementChart" style="max-height: 400px;"></canvas>
+                    <div class="chart-explanation">This line chart tracks engagement growth across a key campaign, rising from 0% to 25% over five stages.</div>
+                </div>
+                <div class="chart-divider"></div>
+                <div class="chart-container">
+                    <canvas id="trafficChart" style="max-height: 400px;"></canvas>
+                    <div class="chart-explanation">This doughnut chart shows traffic distribution: 30% from organic search, 10% from sales channels, and 60% from other sources.</div>
+                </div>
+                <div class="chart-divider"></div>
+                <div class="chart-container">
+                    <canvas id="certsChart" style="max-height: 400px;"></canvas>
+                    <div class="chart-explanation">This bar chart represents certifications by provider: Google (3), HubSpot (1), Hootsuite (1).</div>
+                </div>
+                <div class="chart-divider"></div>
+                <div class="chart-container">
+                    <canvas id="skillsChart" style="max-height: 400px;"></canvas>
+                    <div class="chart-explanation">This donut chart illustrates skill proficiency: SEO (20%), Analytics (25%), Design (20%), Marketing (20%), Coordination (15%) based on expertise.</div>
+                </div>
+            </div>
+        </div>
+        <div id="education" class="section">
+            <h2>Learning Path</h2>
+            <div class="content">
+                <table>
+                    <tr><th>Degree</th><th>Institution</th><th>Years</th></tr>
+                    <tr><td>M.S., Marketing</td><td>University of Texas at Dallas</td><td>2022 - 2023</td></tr>
+                    <tr><td>B.B.A.</td><td>Mansarovar Global University</td><td>2018 - 2021</td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="skills" class="section">
+            <h2>Superpowers</h2>
+            <div class="content card-grid">
+                <div class="card">SEO, SEM, Google Analytics</div>
+                <div class="card">SEMrush, Ahrefs, Moz</div>
+                <div class="card">Social Media (Instagram, TikTok, LinkedIn)</div>
+                <div class="card">Email Marketing (Mailchimp, HubSpot)</div>
+                <div class="card">Content Creation (Canva, Figma)</div>
+                <div class="card">AI Tools, Slack, GitHub</div>
+            </div>
+        </div>
+        <div id="certifications" class="section">
+            <h2>Badges of Honor</h2>
+            <div class="content card-grid">
+                <div class="card">Google Ads Certification (2023)</div>
+                <div class="card">Google Analytics Qualification (2023)</div>
+                <div class="card">HubSpot Social Media Marketing (2023)</div>
+                <div class="card">Hootsuite Platform Certification (2023)</div>
+                <div class="card">Google Digital Marketing (2023)</div>
+            </div>
+        </div>
+        <div id="campaigns" class="section campaigns">
+            <h2>Killer Campaigns</h2>
+            <div class="content card-grid">
+                <div class="card">
+                    <p>Dallas Rugs Market Invitation</p>
+                    <a href="https://mailchi.mp/f28b0f0e3c0d/youre-invited-visit-dallas-rugs-at-the-dallas-total-home-gift-market-from-june-18th-to-24th-9297947" target="_blank">Launch It!</a>
+                </div>
+                <div class="card">
+                    <p>Summer Outdoor Rugs</p>
+                    <a href="https://mailchi.mp/00e76faf5a63/step-into-summer-with-stylish-outdoor-rugs-from-dallas-rugs" target="_blank">Launch It!</a>
+                </div>
+                <div class="card">
+                    <p>Stair Elegance and Safety</p>
+                    <a href="https://mailchi.mp/26bddf6629a8/add-elegance-safety-to-your-stairs-with-dallas-rugs" target="_blank">Launch It!</a>
+                </div>
+            </div>
+        </div>
+        <div id="gallery" class="section image-gallery">
+            <h2>Visual Vibes</h2>
+            <div class="content">
+                <img src="https://i.ibb.co/gMK99bj5/3-post.png" alt="Post 3" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/pByF3nhY/2-post.png" alt="Post 2" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/zTHrb9GB/1-post.png" alt="Post 1" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/k2f2QRjy/W.png" alt="Design W" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/1Bbg2mn/updated-dog-flyer.jpg" alt="Updated Dog Flyer" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/BK7H25wQ/PET-SHOP.jpg" alt="Pet Shop" onclick="openLightbox(this.src)">
+                <img src="https://i.ibb.co/3mrw4X89/Your-only-rug-source-with-many-resources-3.jpg" alt="Rug Source" onclick="openLightbox(this.src)">
+                <div class="gallery-caption">All designs by Aditya Modi for Dallas Rugs Social Media</div>
+                <div id="lightbox" class="lightbox">
+                    <span class="close" onclick="closeLightbox()">×</span>
+                    <img id="lightbox-img">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        document.querySelectorAll('.role-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const details = title.nextElementSibling;
+                details.style.display = details.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        const ctx1 = document.getElementById('engagementChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Start', 'Week 1', 'Week 2', 'Week 3', 'End'],
+                datasets: [{
+                    label: 'Engagement (%)',
+                    data: [0, 5, 15, 20, 25],
+                    borderColor: '#ff9f1c',
+                    fill: false,
+                    tension: 0.4,
+                    pointBackgroundColor: '#ffd700',
+                    pointBorderColor: '#ff9f1c'
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, max: 30, ticks: { color: '#2d1b4e' } },
+                    x: { ticks: { color: '#2d1b4e' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#2d1b4e' } },
+                    title: { display: true, text: 'Engagement Growth', color: '#2d1b4e' }
+                }
+            }
+        });
+
+        const ctx2 = document.getElementById('trafficChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Organic', 'Sales', 'Other'],
+                datasets: [{
+                    data: [30, 10, 60],
+                    backgroundColor: ['#00c4cc', '#ff9f1c', '#ff6f61'],
+                    borderColor: '#ffd700'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { labels: { color: '#2d1b4e' } },
+                    title: { display: true, text: 'Traffic Sources', color: '#2d1b4e' }
+                }
+            }
+        });
+
+        const ctx3 = document.getElementById('certsChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Google', 'HubSpot', 'Hootsuite'],
+                datasets: [{
+                    label: 'Certifications',
+                    data: [3, 1, 1],
+                    backgroundColor: '#00c4cc'
+                }]
+            },
+            options: {
+                scales: { y: { beginAtZero: true, max: 5, ticks: { color: '#2d1b4e' } } },
+                plugins: {
+                    legend: { labels: { color: '#2d1b4e' } },
+                    title: { display: true, text: 'Certifications by Provider', color: '#2d1b4e' }
+                }
+            }
+        });
+
+        const ctx4 = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: ['SEO', 'Analytics', 'Design', 'Marketing', 'Coordination'],
+                datasets: [{
+                    data: [20, 25, 20, 20, 15],
+                    backgroundColor: ['#ff9f1c', '#00c4cc', '#ff6f61', '#ffd700', '#2d1b4e'],
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { labels: { color: '#2d1b4e' } },
+                    title: { display: true, text: 'Skill Proficiency', color: '#2d1b4e' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
